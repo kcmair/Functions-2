@@ -5,19 +5,18 @@
   Invoke the callback, passing in the product of the two numbers multiplied as the argument. 
 */
 
-function multiply (num1, num2, callback){
-  let multiplied = num1 * num2
-  callback(multiplied)
-};
+// CODE HERE
+
+const multiply = (num1, num2, cb) => cb(num1 * num2)
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// multiply(4, 3, answer => {
-//   console.log('The answer is ' + answer) //should console.log 12
-// })
+multiply(4, 3, answer => {
+  console.log('The answer is ' + answer) //should console.log 12
+})
 
 
 
@@ -38,19 +37,18 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback function, passing in the first element in the array as it's argument.
 */
 
+// CODE HERE 
 
-const first = (arr, callback) => {
-  callback(arr[0])
-};
+const first = (arr, cb) => cb(arr[0])
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// first(names, firstName => {
-//   console.log('The first name in names is ' + firstName)
-// })
+first(names, firstName => {
+  console.log('The first name in names is ' + firstName)
+})
 
 
 
@@ -61,15 +59,18 @@ const first = (arr, callback) => {
   Then invoke the callback, passing in the last element in the array as the argument.
 */
 
-const last = (arr, callback) => callback(arr[arr.length - 1]);
+// CODE HERE
+
+const last = (arr, cb) => cb(arr[arr.length - 1])
+
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// last(names, lastName => {
-//   console.log('The last name in names is ' + lastName)
-// })
+last(names, lastName => {
+  console.log('The last name in names is ' + lastName)
+})
 
 
 
@@ -82,30 +83,39 @@ const last = (arr, callback) => callback(arr[arr.length - 1]);
   If the name does not exist, invoke the callback with false as the argument.
 */
 
-const contains = (arr, name2, callback) => {
-  let bool
-  let arr2 = arr.filter(element => element === name2)
-  if (arr2.length > 0){
-    bool = true
-  }else{
-    bool = false
-  }
-  callback(bool)
-};
+// CODE HERE 
 
+// arrow with if block
+const contains = (arr, name, cb) => {
+    if (arr.includes(name) === true) {
+        cb(true)
+    } else {
+        cb(false)
+    }
+}
+
+// includes actually returns a boolean, so we could also just do this 
+// the 'arr.includes(name)' will evaluate first and result in true or false
+// and then the callback will be invoked with that boolean
+const contains = (arr, name, cb) => {
+    return cb(arr.includes(name))
+}
+
+// one line with ternary and same logic as above
+const contains = (arr, name, cb) => cb(arr.includes(name))
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// contains(names, 'Colt', result => {
-//   if(result){
-//     console.log('Colt is in the array')
-//   } else {
-//     console.log('Colt is not in the array')
-//   }
-// })
+contains(names, 'Colt', result => {
+  if(result === true){
+    console.log('Colt is in the array')
+  } else {
+    console.log('Colt is not in the array')
+  }
+})
 
 
 
@@ -117,10 +127,19 @@ const contains = (arr, name2, callback) => {
   Hint: you can use a nested for loop to do this.
 */
 
-const uniq = (arr, callback) => {
-  let arr2 = arr.filter((element, index) => arr.indexOf(element) === index)
-  callback(arr2)
-};
+// CODE HERE
+const uniq = (arr, cb) => {
+    for (let i = 0; i < arr.length; i++) {
+        for (let x = i + 1; x < arr.length; x++) {
+            if (arr[i] === arr[x]) {
+                arr.splice(x, 1)
+                x--
+            }
+        }
+    }
+
+    cb(arr)
+}
 
 
 /*
@@ -130,7 +149,10 @@ const uniq = (arr, callback) => {
   'The new names array with all the duplicate items removed is [UNIQARRPARAM].'
 */
 
-// uniq (names, uniqArr => console.log(`The new names array with all the duplicate items removed is ${uniqArr}`));
+// CODE HERE
+
+uniq(names, uniqArr => console.log(`The new names array with all the duplicate items removed is ${uniqArr}`))
+
 
 
 ////////// PROBLEM 6 //////////
@@ -140,10 +162,9 @@ const uniq = (arr, callback) => {
   For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 */
 
-const each = (names2, callback) => {
-  names2.forEach((element, index) => callback(element, index))
-};
+// CODE HERE 
 
+const each = (arr, cb) => arr.forEach((el, i) => cb(el, i))
 
 
 /*
@@ -153,8 +174,9 @@ const each = (names2, callback) => {
   'The item at index [INDEXPARAM] is [ITEMPARAM].'
 */
 
-printItem = (element, index) => console.log(`The item at index ${element} is ${index}`);
-// each (names, printItem);
+// CODE HERE
+
+each(names, (item, index) => `The item at index ${index} is ${item}.`)
 
 
 ////////// PROBLEM 7 //////////
@@ -187,19 +209,26 @@ var users = [
 ]
 // Do not edit the code above.
 
+// CODE HERE 
 
-const getUserById = (users, id2, callback) => {
-  let found = users.filter(obj => obj.id === id2)
-  let found2 = found[0]
-  callback(found2)
+const getUserById = (arr, id, cb) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].id === id) {
+            return cb(arr[i])
+        }
+    }
 }
+
+// one line with ternary
+const getUserById = (arr, id, cb) => arr.forEach(elem => elem.id === id ? cb(elem) : null)
+
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
 getUserById(users, '16t', user => {
-  // console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
 })
 
 ////////// CHALLENGE //////////
@@ -218,7 +247,20 @@ getUserById(users, '16t', user => {
   the two parameters together and return the sum.
 */
 
-const addingFactory = x => newFunct = y => x + y;
+// CODE HERE
+
+// one line with no parentheses
+const addingFactory = x => y => x + y
+
+// it's a little easier to wrap your head around it like this
+const addingFactory = (x) => (y) => x + y;
+
+// and here's a more straightforward syntax of the same thing
+const addingFactory = x => {
+    return function(y) {
+        return x + y
+    }
+}
 
 
 /*
@@ -233,20 +275,24 @@ const addingFactory = x => newFunct = y => x + y;
   10 as an arguemnt.
 */
 
-let addTen = addingFactory(10)
+// CODE HERE
+
+const addTen = addingFactory(10)
 
 /*
-Now the inner function is stored in the addTen variable! 
+  Now the inner function is stored in the addTen variable! 
 
-Call the addTen function passing in another number and
-console log the result.
+  Call the addTen function passing in another number and
+  console log the result.
 
-Call it a second time, passing in a different number
-to see the different outputs.
+  Call it a second time, passing in a different number
+  to see the different outputs.
 */
 
+// CODE HERE
+
 console.log(addTen(5))
-console.log(addTen(19))
+console.log(addTen(5789))
 
 /*
   Let's make another function from the addingFactory. 
@@ -259,5 +305,10 @@ console.log(addTen(19))
   to add any number to your favorite number!
 */
 
-let addNineteen = addingFactory(19);
-console.log(addNineteen(7))
+// CODE HERE
+
+const addFour = addingFactory(4)
+
+console.log(addFour(4))
+console.log(addFour(4444444))
+

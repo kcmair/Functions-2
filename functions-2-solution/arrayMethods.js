@@ -17,8 +17,13 @@ const mixedNumbers = [6,3,1,7,5,2,6,8,9,4,2,7,9,3,1,8,4,3];
   (element, index, wholeArray)=>{}    Arrow Form
 */
 
-const evenNums = mixedNumbers.filter((element) => element % 2 === 0);
-// console.log(evenNums);
+// CODE HERE
+const evenNumbers = mixedNumbers.filter(function(elem) {
+    return elem % 2 === 0
+})
+
+// with an arrow function
+const evenNumbers = mixedNumbers.filter(num => num % 2 === 0)
 
 
 
@@ -39,9 +44,12 @@ const prices = [15.00, 23.00, 78.00, 34.00, 12.00, 86.00, 12.00, 79.00, 32.00];
 */
 
 // CODE HERE
-const postTaxPrices = prices.map(element => element * 1.07);
-// console.log(postTaxPrices);
+const postTaxPrices = prices.map(function(elem) {
+    return elem * 1.07
+}) 
 
+// with an arrow function
+const postTaxPrices = prices.map(num => num * 1.07)
 
 
 ////////// PROBLEM 3 //////////
@@ -57,8 +65,14 @@ const populations = [8175133, 3792621, 2695598, 2100263];
   (runningTotal, curElement, curIndex, wholeArray)=>{} Arrow Form
 */
 
-const totalPopulation = populations.reduce((acc, cur) => acc + cur);
-// console.log(totalPopulation);
+// CODE HERE
+const totalPopulation = populations.reduce(function(acc, elem) {
+    return acc + elem
+})
+
+// with an arrow function
+const totalPopulation = populations.reduce((a, c) => a + c)
+
 
 
 ////////// PROBLEM 4 //////////
@@ -81,10 +95,15 @@ const monstersInYourPocket = [{"monster":"Bulbabunny","CP":156},{"monster":"Bulb
   Use the filter method to return only the monsters that have a CP of over 200.
 */
 
-const myStrongest = monstersInYourPocket.filter((monst) => monst.CP > 200);
-// console.log(myStrongest);
+// CODE HERE
+const myStrongest = monstersInYourPocket.filter(function(elem) {
+    // could have used bracket notation
+    // return elem["CP"] > 200
+    return elem.CP > 200
+})
 
-
+// with an arrow function
+const myStrongest = monstersInYourPocket.filter(monster => monster.CP > 200)
 
 ////////// PROBLEM 5 //////////
 
@@ -99,8 +118,16 @@ const orders = [{"price":15,"tax":0.09},{"price":42,"tax":0.07},{"price":56,"tax
   Use a higher order method to get all the order totals after adding in the sales tax (given to you as a tax rate, hint: you'll need to do some multiplication). Your answer should be an array of numbers, one total for each order.
 */
 
-const totals = orders.map((obj) => obj.price * (obj.tax + 1));
-// console.log(totals);
+// CODE HERE
+const orderTotals = orders.map(function(elem) {
+    // could have used bracket notation
+    // return elem["price"] + (elem["price"] * elem["tax"])
+    return elem.price + (elem.price * elem.tax)
+  })
+
+// with an arrow function
+const orderTotals = orders.map(order => order.price + (order.price * order.tax))
+
 
 
 ////////// PROBLEM 6 //////////
@@ -119,5 +146,15 @@ const purchases = [{"owner":"Barry","price":103},{"owner":"Bob","price":75},
   Use a high order method(s) to create to get the sum of bobsTotal.
 */
 
-const bobsPurchases = purchases.filter((obj) => obj.owner === `Bob`).reduce((acc, cur) => acc + cur.price, 0);
-console.log(bobsPurchases);
+// you could have also used bracket notation in this problem
+
+const bobsTotal = purchases.filter(function(elem) {
+    return elem.owner === "Bob"
+}).reduce(function(acc,elem) {
+    return acc + elem.price
+}, 0)
+
+// with an arrow function 
+const bobsTotal = purchases
+    .filter(purchase => purchase.owner === "Bob")
+    .reduce((a, c) => a + c.price, 0)
